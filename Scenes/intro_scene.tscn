@@ -1,0 +1,79 @@
+[gd_scene load_steps=4 format=3 uid="uid://d0ca5tcy2johc"]
+
+[ext_resource type="Script" uid="uid://b8wbmdnq8dm53" path="res://Scripts/intro_scene.gd" id="1_d30j0"]
+[ext_resource type="Texture2D" uid="uid://bdndlloa7rovi" path="res://Assets/Images/background/temp1.png" id="2_lim1r"]
+[ext_resource type="AudioStream" uid="uid://deoubowgbmnyi" path="res://Assets/Audio/bgm/start.mp3" id="3_m538q"]
+
+[node name="IntroScene" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_d30j0")
+
+[node name="main_visual" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 1902.0
+offset_bottom = 1052.0
+texture = ExtResource("2_lim1r")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Subtitle" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 169.0
+offset_top = -164.0
+offset_right = -238.0
+offset_bottom = -122.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/normal_font_size = 30
+text = "我叫林音，一个普通的学生……"
+fit_content = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_m538q")
+autoplay = true
+parameters/looping = true
+
+[node name="blackbg" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(0.19, 0.15269667, 0.0722, 1)
+
+[node name="ChoiceContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -752.0
+offset_top = -52.0
+offset_right = 752.0
+offset_bottom = 52.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Btn_Early" type="Button" parent="ChoiceContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 55
+text = "早期：昙曜五窟"
+
+[node name="Btn_Middle" type="Button" parent="ChoiceContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 70
+text = "中期：音乐窟 (第12窟)"
+
+[node name="Btn_Late" type="Button" parent="ChoiceContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 55
+text = "晚期：龙门风格"
