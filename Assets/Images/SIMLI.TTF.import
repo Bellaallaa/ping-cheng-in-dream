@@ -3,12 +3,12 @@
 importer="font_data_dynamic"
 type="FontFile"
 uid="uid://bqhh6tce08bj8"
-path="res://.godot/imported/SIMLI.TTF-27ca62d4ed066375e2b5bffbcf76ea4f.fontdata"
+path="res://.godot/imported/SIMLI.TTF-19b5aa9a4757e9b7f956ce22fbdf1d06.fontdata"
 
 [deps]
 
-source_file="res://Assets/SIMLI.TTF"
-dest_files=["res://.godot/imported/SIMLI.TTF-27ca62d4ed066375e2b5bffbcf76ea4f.fontdata"]
+source_file="res://Assets/Images/SIMLI.TTF"
+dest_files=["res://.godot/imported/SIMLI.TTF-19b5aa9a4757e9b7f956ce22fbdf1d06.fontdata"]
 
 [params]
 

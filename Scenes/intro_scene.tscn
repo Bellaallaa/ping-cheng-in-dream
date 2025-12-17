@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://l6hcpd8xrbiw" path="res://Assets/Images/background/panorama.jpg" id="3_hq3du"]
 [ext_resource type="AudioStream" uid="uid://deoubowgbmnyi" path="res://Assets/Audio/bgm/start.mp3" id="3_m538q"]
 [ext_resource type="Texture2D" uid="uid://wtygcvod4yox" path="res://Assets/Images/background/yanweng.png" id="4_hq3du"]
-[ext_resource type="FontFile" uid="uid://bqhh6tce08bj8" path="res://Assets/SIMLI.TTF" id="7_ctf76"]
+[ext_resource type="FontFile" uid="uid://bqhh6tce08bj8" path="res://Assets/Images/SIMLI.TTF" id="7_ctf76"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_m538q"]
 shader = ExtResource("2_lim1r")

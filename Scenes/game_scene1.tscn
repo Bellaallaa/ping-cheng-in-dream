@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dqiy7b7btcgdk" path="res://Scripts/game_scene1.gd" id="1_q451k"]
 [ext_resource type="Texture2D" uid="uid://irke84v2xfa5" path="res://Assets/Images/ui/RockOldMan.png" id="2_fyvjj"]
 [ext_resource type="Texture2D" uid="uid://byal58p0tm32y" path="res://Assets/Images/background/jiaolong_wide.png" id="2_jemxx"]
-[ext_resource type="FontFile" uid="uid://bqhh6tce08bj8" path="res://Assets/SIMLI.TTF" id="3_fyvjj"]
+[ext_resource type="FontFile" uid="uid://bqhh6tce08bj8" path="res://Assets/Images/SIMLI.TTF" id="3_fyvjj"]
 [ext_resource type="Texture2D" uid="uid://n3xcjf31nfxk" path="res://Assets/Images/ui/eye4.png" id="5_07res"]
 [ext_resource type="AudioStream" uid="uid://b567s82jxlb0a" path="res://Assets/Audio/bgm/2.mp3" id="7_jemxx"]
 

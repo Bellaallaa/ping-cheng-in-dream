@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://d0o50uvqissxi" path="res://Assets/Images/background/bg_feitian_vibrant.jpg" id="2_p2kvq"]
 [ext_resource type="Texture2D" uid="uid://irke84v2xfa5" path="res://Assets/Images/ui/RockOldMan.png" id="3_kejii"]
 [ext_resource type="AudioStream" uid="uid://cdmnh3yqkb2vw" path="res://Assets/Audio/bgm/3.mp3" id="4_w382y"]
-[ext_resource type="FontFile" uid="uid://bqhh6tce08bj8" path="res://Assets/SIMLI.TTF" id="6_juxro"]
+[ext_resource type="FontFile" uid="uid://bqhh6tce08bj8" path="res://Assets/Images/SIMLI.TTF" id="6_juxro"]
 [ext_resource type="Texture2D" uid="uid://ry8her4kq0ar" path="res://Assets/Images/ui/panorama_img.jpg" id="6_sovrk"]
 [ext_resource type="Texture2D" uid="uid://dywcvrl0puof0" path="res://Assets/Images/ui/distant_img.jpg" id="7_v4j7o"]
 [ext_resource type="Texture2D" uid="uid://d2xfqaf4u70c6" path="res://Assets/Images/ui/tunnel_bg.png" id="8_v4j7o"]
@@ -121,6 +121,7 @@ text = "
 "
 
 [node name="WhiteFlash" type="ColorRect" parent="."]
+visible = false
 modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = 15

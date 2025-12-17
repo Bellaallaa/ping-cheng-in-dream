@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dhen5dsarhhua" path="res://Scripts/ceiling_scene.gd" id="1_ndpf4"]
 [ext_resource type="Texture2D" uid="uid://wtygcvod4yox" path="res://Assets/Images/background/yanweng.png" id="2_8t4f5"]
 [ext_resource type="AudioStream" uid="uid://6y0ilbn3pj4h" path="res://Assets/Audio/bgm/4.mp3" id="3_lklva"]
-[ext_resource type="FontFile" uid="uid://bqhh6tce08bj8" path="res://Assets/SIMLI.TTF" id="3_pj5bi"]
+[ext_resource type="FontFile" uid="uid://bqhh6tce08bj8" path="res://Assets/Images/SIMLI.TTF" id="3_pj5bi"]
 [ext_resource type="Texture2D" uid="uid://cvi38u03nkeq8" path="res://Assets/Images/items/light.png" id="4_lklva"]
 [ext_resource type="AudioStream" uid="uid://cto1lhpps2os8" path="res://Assets/Audio/sfx/pipa1.MP3" id="5_1thdf"]
 [ext_resource type="Texture2D" uid="uid://c7sumyvu14yi2" path="res://Assets/Images/items/img_feitian_lute.png" id="5_gu0ic"]
@@ -207,6 +207,7 @@ texture = ExtResource("13_wdbgi")
 position = Vector2(970, 545)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RestorationUI/ConchRoom/FaluoFullImg/TargetConch"]
+position = Vector2(2, 22)
 shape = SubResource("CircleShape2D_502vb")
 
 [node name="BagBtn" type="Button" parent="RestorationUI/ConchRoom"]
