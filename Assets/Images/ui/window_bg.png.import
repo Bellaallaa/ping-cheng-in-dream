@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bdnq02jjxffd0"
-path="res://.godot/imported/bg_feitian_empty.jpg-856ffaac6d62448dfc77567c97a4dbd5.ctex"
+uid="uid://bysmd474i4pej"
+path="res://.godot/imported/window_bg.png-2c3033274f10bfd683d0d1946fe8d60e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Images/background/bg_feitian_empty.jpg"
-dest_files=["res://.godot/imported/bg_feitian_empty.jpg-856ffaac6d62448dfc77567c97a4dbd5.ctex"]
+source_file="res://Assets/Images/ui/window_bg.png"
+dest_files=["res://.godot/imported/window_bg.png-2c3033274f10bfd683d0d1946fe8d60e.ctex"]
 
 [params]
 

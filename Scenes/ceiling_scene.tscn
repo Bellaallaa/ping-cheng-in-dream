@@ -1,0 +1,134 @@
+[gd_scene load_steps=11 format=3 uid="uid://ctbcvpu88xx0x"]
+
+[ext_resource type="Script" uid="uid://dhen5dsarhhua" path="res://Scripts/ceiling_scene.gd" id="1_ndpf4"]
+[ext_resource type="Texture2D" uid="uid://wtygcvod4yox" path="res://Assets/Images/background/yanweng.png" id="2_8t4f5"]
+[ext_resource type="AudioStream" uid="uid://6y0ilbn3pj4h" path="res://Assets/Audio/bgm/4.mp3" id="3_lklva"]
+[ext_resource type="FontFile" uid="uid://bqhh6tce08bj8" path="res://Assets/SIMLI.TTF" id="3_pj5bi"]
+[ext_resource type="Texture2D" uid="uid://cvi38u03nkeq8" path="res://Assets/Images/items/light.png" id="4_lklva"]
+[ext_resource type="AudioStream" uid="uid://cto1lhpps2os8" path="res://Assets/Audio/sfx/pipa1.MP3" id="5_1thdf"]
+[ext_resource type="Texture2D" uid="uid://c7sumyvu14yi2" path="res://Assets/Images/items/img_feitian_lute.png" id="5_gu0ic"]
+[ext_resource type="Texture2D" uid="uid://dht4hs068plm1" path="res://Assets/Images/items/faluo.png" id="5_pj5bi"]
+[ext_resource type="AudioStream" uid="uid://b61xe8ltowlgi" path="res://Assets/Audio/sfx/faluo.mp3" id="6_1thdf"]
+[ext_resource type="AudioStream" uid="uid://bqnd5x0xlw8pa" path="res://Assets/Audio/sfx/pipa2.MP3" id="6_pj5bi"]
+
+[node name="CeilingScene" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -12.0
+offset_top = -7.0
+offset_right = -12.0
+offset_bottom = -7.0
+script = ExtResource("1_ndpf4")
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(973.5, 552.5)
+scale = Vector2(1.5007813, 1.4283854)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="DialogBox" type="ColorRect" parent="CanvasLayer"]
+offset_left = 142.0
+offset_top = 859.0
+offset_right = 1734.0
+offset_bottom = 1043.0
+mouse_filter = 2
+color = Color(0.011764706, 0.011764706, 0.011764706, 0.5882353)
+
+[node name="YanwengImg" type="TextureRect" parent="CanvasLayer"]
+offset_left = 1502.0
+offset_top = 270.0
+offset_right = 2078.0
+offset_bottom = 1294.0
+texture = ExtResource("2_8t4f5")
+
+[node name="CollectButton" type="Button" parent="CanvasLayer"]
+offset_left = 392.0
+offset_top = 730.0
+offset_right = 495.0
+offset_bottom = 793.0
+theme_override_font_sizes/font_size = 27
+text = "收录"
+
+[node name="CollectButton2" type="Button" parent="CanvasLayer"]
+offset_left = 1374.0
+offset_top = 758.0
+offset_right = 1477.0
+offset_bottom = 821.0
+theme_override_font_sizes/font_size = 27
+text = "收录"
+
+[node name="NextSceneBtn" type="Button" parent="CanvasLayer"]
+offset_left = 885.0
+offset_top = 646.0
+offset_right = 1022.0
+offset_bottom = 713.0
+theme_override_font_sizes/font_size = 43
+text = "下一幕"
+
+[node name="SubtitleLabel" type="RichTextLabel" parent="CanvasLayer"]
+offset_left = 200.0
+offset_top = 875.0
+offset_right = 1699.0
+offset_bottom = 1033.0
+mouse_filter = 2
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_fonts/normal_font = ExtResource("3_pj5bi")
+theme_override_font_sizes/normal_font_size = 52
+text = "岩翁:云冈的魂，在于‘气韵生动’。 这里的气，不是风，是乐。 入画者，去听。在风声里，辨识出那些失落的声音，把它们还给乐神。"
+
+[node name="LightsGroup" type="Node2D" parent="."]
+position = Vector2(12, 5)
+
+[node name="RightLight" type="TextureButton" parent="LightsGroup"]
+offset_left = 1283.0
+offset_top = 465.0
+offset_right = 1584.0
+offset_bottom = 770.0
+texture_normal = ExtResource("4_lklva")
+
+[node name="LeftLight" type="TextureButton" parent="LightsGroup"]
+offset_left = 343.0
+offset_top = 459.0
+offset_right = 644.0
+offset_bottom = 764.0
+texture_normal = ExtResource("4_lklva")
+
+[node name="ItemsGroup" type="Node2D" parent="."]
+
+[node name="ItemPipa" type="TextureButton" parent="ItemsGroup"]
+offset_left = 330.0
+offset_top = 169.0
+offset_right = 856.0
+offset_bottom = 1089.0
+scale = Vector2(0.8, 0.8)
+texture_normal = ExtResource("5_gu0ic")
+
+[node name="ItemConch" type="TextureButton" parent="ItemsGroup"]
+offset_left = 1267.0
+offset_top = 206.0
+offset_right = 2051.0
+offset_bottom = 1566.0
+scale = Vector2(0.4, 0.4)
+texture_normal = ExtResource("5_pj5bi")
+
+[node name="SFX_Pipa" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(-728, 603)
+stream = ExtResource("5_1thdf")
+
+[node name="SFX_Pipa2" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(-728, 603)
+stream = ExtResource("6_pj5bi")
+
+[node name="SFX_Conch" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(2572, 679)
+stream = ExtResource("6_1thdf")
+
+[node name="BGM" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_lklva")
+volume_db = -15.0
+
+[connection signal="pressed" from="CanvasLayer/CollectButton" to="." method="_on_collect_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/CollectButton2" to="." method="_on_collect_button2_pressed"]
+[connection signal="pressed" from="CanvasLayer/NextSceneBtn" to="." method="_on_next_scene_btn_pressed"]
+[connection signal="pressed" from="LightsGroup/RightLight" to="." method="_on_right_light_pressed"]
+[connection signal="pressed" from="LightsGroup/LeftLight" to="." method="_on_left_light_pressed"]

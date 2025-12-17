@@ -1,0 +1,98 @@
+[gd_scene load_steps=3 format=3 uid="uid://b7nwh60usgmre"]
+
+[ext_resource type="Texture2D" uid="uid://l6hcpd8xrbiw" path="res://Assets/Images/background/panorama.jpg" id="1_klylv"]
+[ext_resource type="Script" uid="uid://cdm26spgpi6ye" path="res://Scripts/title_screen.gd" id="1_p3fck"]
+
+[node name="TitleScreen" type="Control"]
+layout_mode = 3
+anchor_right = 1.5050001
+anchor_bottom = 1.7770001
+offset_left = -428.0
+offset_top = 2043.0
+offset_right = -264.6001
+offset_bottom = 1938.84
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_p3fck")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.14600001
+anchor_top = -1.1220001
+anchor_right = 0.14600001
+anchor_bottom = -1.1220001
+offset_left = -9.738037
+offset_top = -1.5698242
+offset_right = 3176.9287
+offset_bottom = 1818.43
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("1_klylv")
+
+[node name="GameTitle" type="Label" parent="."]
+layout_mode = 0
+offset_left = 723.0
+offset_top = -1813.0
+offset_right = 1173.0
+offset_bottom = -1676.0
+theme_override_font_sizes/font_size = 100
+text = "平城入梦"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 1141.0
+offset_top = -1383.0
+offset_right = 1685.0
+offset_bottom = -988.0
+alignment = 1
+
+[node name="StartButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "入梦"
+
+[node name="CreditsButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "制作人员"
+
+[node name="CreditsPanel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.461037
+anchor_top = -0.8157025
+anchor_right = 0.461037
+anchor_bottom = -0.8157025
+offset_left = -298.54602
+offset_top = -217.5
+offset_right = 301.45398
+offset_bottom = 182.5
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="CreditsPanel"]
+layout_mode = 0
+offset_left = 44.0
+offset_top = 52.0
+offset_right = 512.0
+offset_bottom = 283.0
+theme_override_font_sizes/font_size = 26
+text = "北京大学《视觉艺术与计算美学》大作业
+
+杨丰岭
+于紫钰
+路景轶
+王子璇"
+
+[node name="CloseCredits" type="Button" parent="CreditsPanel"]
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 51.0
+text = "关闭"
+
+[node name="BGM" type="AudioStreamPlayer" parent="."]
+
+[connection signal="pressed" from="VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/CreditsButton" to="." method="_on_credits_button_pressed"]
+[connection signal="pressed" from="CreditsPanel/CloseCredits" to="." method="_on_close_credits_pressed"]

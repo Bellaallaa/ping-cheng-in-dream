@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bdnq02jjxffd0"
-path="res://.godot/imported/bg_feitian_empty.jpg-856ffaac6d62448dfc77567c97a4dbd5.ctex"
+uid="uid://dht4hs068plm1"
+path="res://.godot/imported/faluo.png-7941c8a51613d5f5de8592f3f5bf622e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Images/background/bg_feitian_empty.jpg"
-dest_files=["res://.godot/imported/bg_feitian_empty.jpg-856ffaac6d62448dfc77567c97a4dbd5.ctex"]
+source_file="res://Assets/Images/items/faluo.png"
+dest_files=["res://.godot/imported/faluo.png-7941c8a51613d5f5de8592f3f5bf622e.ctex"]
 
 [params]
 

@@ -183,6 +183,7 @@ func start_climax():
 	
 	# 1. 手写字动画
 	achievement_text.text = "达成成就：平城入梦" 
+	
 	achievement_text.visible_ratio = 0.0 # 字数归零
 	achievement_text.modulate.a = 1.0    # 确保文字框可见
 	
@@ -193,6 +194,7 @@ func start_climax():
 	
 	await tween_write.finished
 	
+	await get_tree().create_timer(2.0).timeout 
 	
 	# 2. 隧道 + 光圈 同时浮现
 	# 光圈会遮住方形图片的硬边，让它看起来像融入了白雾中

@@ -1,0 +1,159 @@
+[gd_scene load_steps=8 format=3 uid="uid://dtaah3qrldmrv"]
+
+[ext_resource type="Script" uid="uid://dqiy7b7btcgdk" path="res://Scripts/game_scene1.gd" id="1_q451k"]
+[ext_resource type="Texture2D" uid="uid://irke84v2xfa5" path="res://Assets/Images/ui/RockOldMan.png" id="2_fyvjj"]
+[ext_resource type="Texture2D" uid="uid://byal58p0tm32y" path="res://Assets/Images/background/jiaolong_wide.png" id="2_jemxx"]
+[ext_resource type="FontFile" uid="uid://bqhh6tce08bj8" path="res://Assets/SIMLI.TTF" id="3_fyvjj"]
+[ext_resource type="Texture2D" uid="uid://n3xcjf31nfxk" path="res://Assets/Images/ui/eye4.png" id="5_07res"]
+[ext_resource type="AudioStream" uid="uid://b567s82jxlb0a" path="res://Assets/Audio/bgm/2.mp3" id="7_jemxx"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_07res"]
+
+[node name="GameScene1" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = 11.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_q451k")
+metadata/_edit_horizontal_guides_ = [-12960.0]
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 3.0
+offset_top = 12.0
+offset_right = 3.0
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_jemxx")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Character" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 1283.0
+offset_top = 279.0
+offset_right = 1991.0
+offset_bottom = 1496.4377
+texture = ExtResource("2_fyvjj")
+expand_mode = 1
+
+[node name="DialogBox" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 81.0
+offset_top = 751.0
+offset_right = 1875.0
+offset_bottom = 1092.0
+
+[node name="NameLabel" type="Label" parent="DialogBox"]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 14.0
+offset_right = 149.0
+offset_bottom = 78.0
+theme_override_fonts/font = ExtResource("3_fyvjj")
+theme_override_font_sizes/font_size = 54
+text = "岩翁"
+
+[node name="ContentLabel" type="RichTextLabel" parent="DialogBox"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.023000002
+anchor_bottom = 0.13700001
+offset_left = -2.0
+offset_top = 105.0
+offset_right = 1422.29
+offset_bottom = 223.859
+theme_override_fonts/normal_font = ExtResource("3_fyvjj")
+theme_override_font_sizes/normal_font_size = 44
+text = "        入画者，你来了..."
+
+[node name="PillarButton" type="TextureButton" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+offset_left = 914.0
+offset_top = 622.0
+offset_right = 1214.0
+offset_bottom = 891.0
+scale = Vector2(0.4, 0.4)
+texture_normal = ExtResource("5_07res")
+
+[node name="CollectionPopup" type="Panel" parent="."]
+visible = false
+layout_mode = 0
+offset_right = 1924.0
+offset_bottom = 1070.0
+
+[node name="ItemImage" type="TextureRect" parent="CollectionPopup"]
+layout_mode = 0
+offset_left = 615.0
+offset_top = 81.0
+offset_right = 1255.0
+offset_bottom = 449.0
+texture = SubResource("CompressedTexture2D_07res")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="ItemDesc" type="RichTextLabel" parent="CollectionPopup"]
+layout_mode = 0
+offset_left = 642.0
+offset_top = 595.0
+offset_right = 1251.0
+offset_bottom = 1003.0
+theme_override_fonts/normal_font = ExtResource("3_fyvjj")
+theme_override_font_sizes/normal_font_size = 35
+text = "两兽相背：受波斯影响的兽形柱头饰"
+
+[node name="ConfirmButton" type="Button" parent="CollectionPopup"]
+layout_mode = 0
+offset_left = 647.0
+offset_top = 475.0
+offset_right = 1226.0
+offset_bottom = 542.0
+theme_override_colors/font_hover_pressed_color = Color(0.56822497, 0.74057037, 0.7255409, 1)
+theme_override_font_sizes/font_size = 43
+text = "收录"
+
+[node name="BGMPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_jemxx")
+volume_db = 0.634
+autoplay = true
+
+[node name="EndTitle" type="RichTextLabel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -473.0
+offset_top = -89.5
+offset_right = 575.0
+offset_bottom = 60.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/outline_size = 3
+theme_override_fonts/normal_font = ExtResource("3_fyvjj")
+theme_override_font_sizes/normal_font_size = 72
+text = "第一幕：完成"
+
+[node name="NextButton" type="Button" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 890.0
+offset_top = 583.0
+offset_right = 1027.0
+offset_bottom = 670.0
+theme_override_font_sizes/font_size = 43
+text = "下一幕"
+
+[connection signal="pressed" from="PillarButton" to="." method="_on_pillar_button_pressed"]
+[connection signal="pressed" from="NextButton" to="." method="_on_next_button_pressed"]

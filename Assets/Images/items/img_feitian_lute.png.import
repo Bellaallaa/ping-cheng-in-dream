@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bdnq02jjxffd0"
-path="res://.godot/imported/bg_feitian_empty.jpg-856ffaac6d62448dfc77567c97a4dbd5.ctex"
+uid="uid://c7sumyvu14yi2"
+path="res://.godot/imported/img_feitian_lute.png-34aef17bc2bb912b49c16d453b88a40d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Images/background/bg_feitian_empty.jpg"
-dest_files=["res://.godot/imported/bg_feitian_empty.jpg-856ffaac6d62448dfc77567c97a4dbd5.ctex"]
+source_file="res://Assets/Images/items/img_feitian_lute.png"
+dest_files=["res://.godot/imported/img_feitian_lute.png-34aef17bc2bb912b49c16d453b88a40d.ctex"]
 
 [params]
 
