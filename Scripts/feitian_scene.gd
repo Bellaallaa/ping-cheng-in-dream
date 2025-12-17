@@ -31,12 +31,12 @@ var placed_count = 0 # 记录放对了好几个
 
 func _ready():
 	# 加载并播放初始背景音
-	audio_player.stream = load("res://Assets/Audio/bgm/1.mp3") 
-	audio_player.play()
+	#audio_player.stream = load("res://Assets/Audio/bgm/1.mp3") 
+	#audio_player.play()
 	
 	# 初始化：把艳丽背景设为全透明
 	vibrant_mural.modulate.a = 0
-	subtitle.text = "岩翁：将失落的音韵还给她们吧..."
+	subtitle.text = "岩翁：乐姬们已重获失落的音韵..."
 	
 	# --- 【新增】修正缩放中心点 ---
 	# 这一行意思是：把缩放中心设置到图片宽的一半、高的一半（也就是正中心）
@@ -44,76 +44,77 @@ func _ready():
 	vibrant_mural.pivot_offset = vibrant_mural.size / 2
 	tunnel_bg.pivot_offset = tunnel_bg.size / 2
 	
-	# --- 关键：开启图标的鼠标检测 ---
-	# 告诉Godot：这两个图标要接收鼠标信号
-	pipa_icon.gui_input.connect(_on_icon_gui_input.bind(pipa_icon))
-	bili_icon.gui_input.connect(_on_icon_gui_input.bind(bili_icon))
-	
+	## --- 关键：开启图标的鼠标检测 ---
+	## 告诉Godot：这两个图标要接收鼠标信号
+	#pipa_icon.gui_input.connect(_on_icon_gui_input.bind(pipa_icon))
+	#bili_icon.gui_input.connect(_on_icon_gui_input.bind(bili_icon))
+	#
 	
 
-# --- 3. 核心交互：拖拽逻辑 ---
-# 这个函数会每一帧都运行，检测鼠标信号
-func _on_icon_gui_input(event, item):
-	if item.visible == false: return # 已经放好的东西不能再拖
-	
-	if event is InputEventMouseButton:
-		# A. 鼠标按下：开始拖
-		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			dragging_item = item
-			original_position = item.global_position # 记住老家在哪
-		
-		# B. 鼠标松开：停止拖，并检查位置
-		elif event.button_index == MOUSE_BUTTON_LEFT and not event.pressed:
-			if dragging_item == item:
-				check_drop_target(item)
-				dragging_item = null # 清空手里的东西
-
-func _process(delta):
-	# 如果当前手里正抓着东西，让它跟着鼠标跑
-	if dragging_item != null:
-		dragging_item.global_position = get_global_mouse_position() - (dragging_item.size / 2)
-
-# --- 4. 裁判逻辑：放对了吗？ ---
-func check_drop_target(item):
-	var target = null
-	# 如果拖的是琵琶，目标就是琵琶区域；如果是筚篥，目标就是筚篥区域
-	if item == pipa_icon:
-		target = pipa_target
-	elif item == bili_icon:
-		target = bili_target
-	
-	# 检测距离：图标中心 和 目标区域中心 的距离小于 100 像素就算放对了
-	if item.global_position.distance_to(target.global_position) < 1000:
-		success_place(item)
-	else:
-		# 放错了：弹回背包里
-		var tween = create_tween()
-		tween.tween_property(item, "global_position", original_position, 0.2)
-
-# --- 5. 成功后的逻辑 ---
-func success_place(item):
-	print("放置成功！")
-	item.visible = false # 隐藏背包里的图标
-	# 这里其实应该让壁画上对应的乐器亮起来，简单起见我们只计分
-	
-	placed_count += 1
-	if placed_count == 1:
-		subtitle.text = "岩翁：感觉到石窟的呼吸了吗？"
-		# --- 音频部分修改 ---
-		# 用专门的 SFX_Player 播放解锁音效，这样不会打断背景风声
-		sfx_player.stream = load("res://Assets/Audio/bgm/3.mp3")
-		sfx_player.play()
-	elif placed_count == 2:
-		start_climax()
+## --- 3. 核心交互：拖拽逻辑 ---
+## 这个函数会每一帧都运行，检测鼠标信号
+#func _on_icon_gui_input(event, item):
+	#if item.visible == false: return # 已经放好的东西不能再拖
+	#
+	#if event is InputEventMouseButton:
+		## A. 鼠标按下：开始拖
+		#if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+			#dragging_item = item
+			#original_position = item.global_position # 记住老家在哪
+		#
+		## B. 鼠标松开：停止拖，并检查位置
+		#elif event.button_index == MOUSE_BUTTON_LEFT and not event.pressed:
+			#if dragging_item == item:
+				#check_drop_target(item)
+				#dragging_item = null # 清空手里的东西
+#
+#func _process(delta):
+	## 如果当前手里正抓着东西，让它跟着鼠标跑
+	#if dragging_item != null:
+		#dragging_item.global_position = get_global_mouse_position() - (dragging_item.size / 2)
+#
+## --- 4. 裁判逻辑：放对了吗？ ---
+#func check_drop_target(item):
+	#var target = null
+	## 如果拖的是琵琶，目标就是琵琶区域；如果是筚篥，目标就是筚篥区域
+	#if item == pipa_icon:
+		#target = pipa_target
+	#elif item == bili_icon:
+		#target = bili_target
+	#
+	## 检测距离：图标中心 和 目标区域中心 的距离小于 100 像素就算放对了
+	#if item.global_position.distance_to(target.global_position) < 1000:
+		#success_place(item)
+	#else:
+		## 放错了：弹回背包里
+		#var tween = create_tween()
+		#tween.tween_property(item, "global_position", original_position, 0.2)
+#
+## --- 5. 成功后的逻辑 ---
+#func success_place(item):
+	#print("放置成功！")
+	#item.visible = false # 隐藏背包里的图标
+	## 这里其实应该让壁画上对应的乐器亮起来，简单起见我们只计分
+	#
+	#placed_count += 1
+	#if placed_count == 1:
+		#subtitle.text = "岩翁：感觉到石窟的呼吸了吗？"
+		## --- 音频部分修改 ---
+		## 用专门的 SFX_Player 播放解锁音效，这样不会打断背景风声
+		#sfx_player.stream = load("res://Assets/Audio/bgm/3.mp3")
+		#sfx_player.play()
+	#elif placed_count == 2:
+		#start_climax()
 
 # --- 6. 高潮演出  ---
-func start_climax():
+#func start_climax():
+	await get_tree().create_timer(2.0).timeout # 听一会儿音乐
 	subtitle.text = "岩翁：这就是云冈的真相..."
 	
 	# A. 播放交响乐
 	#切换背景音乐为高潮音乐
 	audio_player.stop() # 先停掉风声
-	audio_player.stream = load("res://Assets/Audio/bgm/2.mp3") # 确保你有这个文件
+	audio_player.stream = load("res://Assets/Audio/bgm/3.mp3") # 确保你有这个文件
 	audio_player.play()
 	
 	# B. 画面变艳丽 (Tween动画)
@@ -225,8 +226,8 @@ func start_climax():
 	
 	# A. 隧道无限放大 + 旋转 (制造扭曲穿越感)
 	# 前提：你必须在 _ready() 里设置了 pivot_offset = size / 2
-	tween_end.tween_property(tunnel_bg, "scale", Vector2(10, 10), 3.0)
-	tween_end.tween_property(tunnel_bg, "rotation_degrees", 180.0, 3.0)
+	tween_end.tween_property(tunnel_bg, "scale", Vector2(8, 10), 3.0)
+	tween_end.tween_property(tunnel_bg, "rotation_degrees", 160.0, 3.0)
 	
 	
 	# C. 白光彻底变亮 (淹没屏幕)

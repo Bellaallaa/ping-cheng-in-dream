@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bvry63ogyyyft"]
+[gd_scene load_steps=10 format=3 uid="uid://bdl0ma3hvnbsl"]
 
 [ext_resource type="Texture2D" uid="uid://dk2i800oa7m1r" path="res://Assets/Images/background/6.1.jpg" id="1_5hbmr"]
 [ext_resource type="Script" uid="uid://bh1evgrxiun3w" path="res://Scripts/feitian_scene.gd" id="1_w382y"]
@@ -44,6 +44,10 @@ texture = ExtResource("2_p2kvq")
 expand_mode = 1
 stretch_mode = 6
 
+[node name="RockOldMan" type="Sprite2D" parent="."]
+position = Vector2(1488, 572)
+texture = ExtResource("3_kejii")
+
 [node name="AudioPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_w382y")
 
@@ -84,11 +88,6 @@ offset_bottom = 1050.0
 mouse_filter = 2
 color = Color(0.011764706, 0.011764706, 0.011764706, 0.5882353)
 
-[node name="RockOldMan" type="Sprite2D" parent="."]
-position = Vector2(1657, 854)
-scale = Vector2(1.2743055, 1.25)
-texture = ExtResource("3_kejii")
-
 [node name="TunnelBg" type="TextureRect" parent="."]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 1
@@ -97,7 +96,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-pivot_offset = Vector2(960, 540)
+pivot_offset = Vector2(960, 640)
 mouse_filter = 2
 texture = ExtResource("8_v4j7o")
 expand_mode = 1
@@ -124,12 +123,9 @@ text = "
 [node name="WhiteFlash" type="ColorRect" parent="."]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 1
-anchors_preset = -1
-anchor_right = 0.9990001
+anchors_preset = 15
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 4.0
-offset_right = -0.080078125
-offset_bottom = 8.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2

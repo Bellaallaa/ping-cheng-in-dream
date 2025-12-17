@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://ctbcvpu88xx0x"]
+[gd_scene load_steps=18 format=3 uid="uid://ctbcvpu88xx0x"]
 
 [ext_resource type="Script" uid="uid://dhen5dsarhhua" path="res://Scripts/ceiling_scene.gd" id="1_ndpf4"]
 [ext_resource type="Texture2D" uid="uid://wtygcvod4yox" path="res://Assets/Images/background/yanweng.png" id="2_8t4f5"]
@@ -10,6 +10,21 @@
 [ext_resource type="Texture2D" uid="uid://dht4hs068plm1" path="res://Assets/Images/items/faluo.png" id="5_pj5bi"]
 [ext_resource type="AudioStream" uid="uid://b61xe8ltowlgi" path="res://Assets/Audio/sfx/faluo.mp3" id="6_1thdf"]
 [ext_resource type="AudioStream" uid="uid://bqnd5x0xlw8pa" path="res://Assets/Audio/sfx/pipa2.MP3" id="6_pj5bi"]
+[ext_resource type="Shader" uid="uid://qvdjiel35wxq" path="res://Scenes/ceiling_scene.gdshader" id="11_pm8mw"]
+[ext_resource type="Texture2D" uid="uid://hjh2mpxhe74s" path="res://Assets/Images/background/feitian_pipa.jpg" id="12_wdbgi"]
+[ext_resource type="Texture2D" uid="uid://bi11vnka71lff" path="res://Assets/Images/background/feitian_faluo.jpg" id="13_wdbgi"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_030lq"]
+shader = ExtResource("11_pm8mw")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_nk8ub"]
+radius = 240.03333
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rjex1"]
+shader = ExtResource("11_pm8mw")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_502vb"]
+radius = 116.38728
 
 [node name="CeilingScene" type="Control"]
 layout_mode = 3
@@ -56,14 +71,6 @@ offset_right = 1477.0
 offset_bottom = 821.0
 theme_override_font_sizes/font_size = 27
 text = "收录"
-
-[node name="NextSceneBtn" type="Button" parent="CanvasLayer"]
-offset_left = 885.0
-offset_top = 646.0
-offset_right = 1022.0
-offset_bottom = 713.0
-theme_override_font_sizes/font_size = 43
-text = "下一幕"
 
 [node name="SubtitleLabel" type="RichTextLabel" parent="CanvasLayer"]
 offset_left = 200.0
@@ -127,8 +134,117 @@ stream = ExtResource("6_1thdf")
 stream = ExtResource("3_lklva")
 volume_db = -15.0
 
+[node name="RestorationUI" type="CanvasLayer" parent="."]
+
+[node name="PipaRoom" type="Control" parent="RestorationUI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="LejiFullImg" type="TextureRect" parent="RestorationUI/PipaRoom"]
+material = SubResource("ShaderMaterial_030lq")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("12_wdbgi")
+
+[node name="TargetPipa" type="Area2D" parent="RestorationUI/PipaRoom/LejiFullImg"]
+position = Vector2(995, 625)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RestorationUI/PipaRoom/LejiFullImg/TargetPipa"]
+position = Vector2(-25, -34)
+shape = SubResource("CircleShape2D_nk8ub")
+
+[node name="BackBtn" type="Button" parent="RestorationUI/PipaRoom"]
+layout_mode = 0
+offset_left = 1610.0
+offset_top = 919.0
+offset_right = 1820.0
+offset_bottom = 1012.0
+theme_override_fonts/font = ExtResource("3_pj5bi")
+theme_override_font_sizes/font_size = 66
+text = "返回"
+
+[node name="BagBtn" type="Button" parent="RestorationUI/PipaRoom"]
+layout_mode = 0
+offset_left = 1569.0
+offset_top = 848.0
+offset_right = 1817.0
+offset_bottom = 917.0
+theme_override_fonts/font = ExtResource("3_pj5bi")
+theme_override_font_sizes/font_size = 60
+text = "打开背包"
+
+[node name="ConchRoom" type="Control" parent="RestorationUI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="FaluoFullImg" type="TextureRect" parent="RestorationUI/ConchRoom"]
+material = SubResource("ShaderMaterial_rjex1")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("13_wdbgi")
+
+[node name="TargetConch" type="Area2D" parent="RestorationUI/ConchRoom/FaluoFullImg"]
+position = Vector2(970, 545)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RestorationUI/ConchRoom/FaluoFullImg/TargetConch"]
+shape = SubResource("CircleShape2D_502vb")
+
+[node name="BagBtn" type="Button" parent="RestorationUI/ConchRoom"]
+layout_mode = 0
+offset_left = 1569.0
+offset_top = 848.0
+offset_right = 1817.0
+offset_bottom = 917.0
+theme_override_fonts/font = ExtResource("3_pj5bi")
+theme_override_font_sizes/font_size = 60
+text = "打开背包"
+
+[node name="Backpack" type="HBoxContainer" parent="RestorationUI"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 26.0
+offset_top = -545.0
+offset_right = 591.0
+offset_bottom = -45.0
+grow_vertical = 0
+metadata/_edit_group_ = true
+
+[node name="PackPipa" type="TextureRect" parent="RestorationUI/Backpack"]
+custom_minimum_size = Vector2(300, 500)
+layout_mode = 2
+texture = ExtResource("5_gu0ic")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="PackConch" type="TextureRect" parent="RestorationUI/Backpack"]
+custom_minimum_size = Vector2(200, 250)
+layout_mode = 2
+texture = ExtResource("5_pj5bi")
+expand_mode = 1
+stretch_mode = 5
+
 [connection signal="pressed" from="CanvasLayer/CollectButton" to="." method="_on_collect_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/CollectButton2" to="." method="_on_collect_button2_pressed"]
-[connection signal="pressed" from="CanvasLayer/NextSceneBtn" to="." method="_on_next_scene_btn_pressed"]
 [connection signal="pressed" from="LightsGroup/RightLight" to="." method="_on_right_light_pressed"]
 [connection signal="pressed" from="LightsGroup/LeftLight" to="." method="_on_left_light_pressed"]
