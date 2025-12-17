@@ -4,9 +4,9 @@
 [ext_resource type="Shader" uid="uid://bojjj4r72sha1" path="res://Scenes/intro_scene.gdshader" id="2_lim1r"]
 [ext_resource type="Texture2D" uid="uid://cgfnv1dq6f35b" path="res://Assets/Images/background/1.1.jpg" id="3_aqy4q"]
 [ext_resource type="Texture2D" uid="uid://l6hcpd8xrbiw" path="res://Assets/Images/background/panorama.jpg" id="3_hq3du"]
-[ext_resource type="AudioStream" uid="uid://deoubowgbmnyi" path="res://Assets/Audio/bgm/start.mp3" id="3_m538q"]
 [ext_resource type="Texture2D" uid="uid://wtygcvod4yox" path="res://Assets/Images/background/yanweng.png" id="4_hq3du"]
-[ext_resource type="FontFile" uid="uid://bqhh6tce08bj8" path="res://Assets/Images/SIMLI.TTF" id="7_ctf76"]
+[ext_resource type="AudioStream" uid="uid://63sxseboea68" path="res://Assets/Audio/bgm/0_bgm.MP3" id="6_ctf76"]
+[ext_resource type="FontFile" uid="uid://bqhh6tce08bj8" path="res://Assets/SIMLI.TTF" id="7_ctf76"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_m538q"]
 shader = ExtResource("2_lim1r")
@@ -56,7 +56,7 @@ offset_bottom = 1244.0
 texture = ExtResource("4_hq3du")
 
 [node name="SFX_Player" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("3_m538q")
+stream = ExtResource("6_ctf76")
 volume_db = -10.0
 parameters/looping = true
 
@@ -77,16 +77,19 @@ alignment = 1
 
 [node name="Btn_Early" type="Button" parent="ChoiceContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("7_ctf76")
 theme_override_font_sizes/font_size = 55
 text = "早期：昙曜五窟"
 
 [node name="Btn_Middle" type="Button" parent="ChoiceContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("7_ctf76")
 theme_override_font_sizes/font_size = 70
 text = "中期：音乐窟 (第12窟)"
 
 [node name="Btn_Late" type="Button" parent="ChoiceContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("7_ctf76")
 theme_override_font_sizes/font_size = 55
 text = "晚期：龙门风格"
 

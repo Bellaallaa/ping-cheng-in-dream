@@ -2,14 +2,14 @@
 
 [ext_resource type="Script" uid="uid://dhen5dsarhhua" path="res://Scripts/ceiling_scene.gd" id="1_ndpf4"]
 [ext_resource type="Texture2D" uid="uid://wtygcvod4yox" path="res://Assets/Images/background/yanweng.png" id="2_8t4f5"]
-[ext_resource type="AudioStream" uid="uid://6y0ilbn3pj4h" path="res://Assets/Audio/bgm/4.mp3" id="3_lklva"]
-[ext_resource type="FontFile" uid="uid://bqhh6tce08bj8" path="res://Assets/Images/SIMLI.TTF" id="3_pj5bi"]
-[ext_resource type="Texture2D" uid="uid://cvi38u03nkeq8" path="res://Assets/Images/items/light.png" id="4_lklva"]
+[ext_resource type="FontFile" uid="uid://bqhh6tce08bj8" path="res://Assets/SIMLI.TTF" id="3_pj5bi"]
+[ext_resource type="Texture2D" uid="uid://c0ka8yo25rcir" path="res://Assets/Images/items/circle.png" id="4_wdbgi"]
 [ext_resource type="AudioStream" uid="uid://cto1lhpps2os8" path="res://Assets/Audio/sfx/pipa1.MP3" id="5_1thdf"]
 [ext_resource type="Texture2D" uid="uid://c7sumyvu14yi2" path="res://Assets/Images/items/img_feitian_lute.png" id="5_gu0ic"]
 [ext_resource type="Texture2D" uid="uid://dht4hs068plm1" path="res://Assets/Images/items/faluo.png" id="5_pj5bi"]
 [ext_resource type="AudioStream" uid="uid://b61xe8ltowlgi" path="res://Assets/Audio/sfx/faluo.mp3" id="6_1thdf"]
 [ext_resource type="AudioStream" uid="uid://bqnd5x0xlw8pa" path="res://Assets/Audio/sfx/pipa2.MP3" id="6_pj5bi"]
+[ext_resource type="AudioStream" uid="uid://2ylir2aw12jj" path="res://Assets/Audio/bgm/2_start.MP3" id="10_wdbgi"]
 [ext_resource type="Shader" uid="uid://qvdjiel35wxq" path="res://Scenes/ceiling_scene.gdshader" id="11_pm8mw"]
 [ext_resource type="Texture2D" uid="uid://hjh2mpxhe74s" path="res://Assets/Images/background/feitian_pipa.jpg" id="12_wdbgi"]
 [ext_resource type="Texture2D" uid="uid://bi11vnka71lff" path="res://Assets/Images/background/feitian_faluo.jpg" id="13_wdbgi"]
@@ -89,16 +89,18 @@ position = Vector2(12, 5)
 [node name="RightLight" type="TextureButton" parent="LightsGroup"]
 offset_left = 1283.0
 offset_top = 465.0
-offset_right = 1584.0
-offset_bottom = 770.0
-texture_normal = ExtResource("4_lklva")
+offset_right = 2783.0
+offset_bottom = 1965.0
+scale = Vector2(0.2, 0.2)
+texture_normal = ExtResource("4_wdbgi")
 
 [node name="LeftLight" type="TextureButton" parent="LightsGroup"]
 offset_left = 343.0
 offset_top = 459.0
 offset_right = 644.0
 offset_bottom = 764.0
-texture_normal = ExtResource("4_lklva")
+scale = Vector2(0.2, 0.2)
+texture_normal = ExtResource("4_wdbgi")
 
 [node name="ItemsGroup" type="Node2D" parent="."]
 
@@ -131,10 +133,11 @@ position = Vector2(2572, 679)
 stream = ExtResource("6_1thdf")
 
 [node name="BGM" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("3_lklva")
+stream = ExtResource("10_wdbgi")
 volume_db = -15.0
 
 [node name="RestorationUI" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="PipaRoom" type="Control" parent="RestorationUI"]
 layout_mode = 3

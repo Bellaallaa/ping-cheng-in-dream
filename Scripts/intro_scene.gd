@@ -5,15 +5,27 @@ extends Control
 @onready var subtitle = $Subtitle
 @onready var sfx_player = $SFX_Player
 @onready var choice_container = $ChoiceContainer
-@onready var detail_img = $DetailImg
+@onready var detail_img = $DetailImg # 这个可能暂时用不到了，但先留着
 @onready var yanweng_img = $YanwengImg
 
-# --- 【新】定义一个信号，用来通知脚本“玩家点击了” ---
+# --- 【新】预加载明暗变化的图片资源 ---
+# 请确保你的路径和文件名是正确的！
+var img_brightest = load("res://Assets/Images/background/1.1.jpg") # 1.1 最亮
+var img_bright    = load("res://Assets/Images/background/1.2.jpg") # 1.2 较亮
+var img_dark      = load("res://Assets/Images/background/1.3.jpg") # 1.3 较暗
+#var img_darkest   = load("res://Assets/Images/background/1.4.jpg") # 1.4 最暗
+
+# --- 定义信号 ---
 signal user_clicked
 
 func _ready():
 	# 初始化
-	main_visual.material.set_shader_parameter("radius", -1.0)
+	# Shader 半径设为 -1 或 0 都可以，确保开始是黑的
+	main_visual.material.set_shader_parameter("radius", 0.0)
+	
+	# 确保一开始加载的是最暗的那张图，或者普通的石窟图
+	# 这里假设最开始显示最暗的，等待变亮
+	main_visual.texture = img_dark
 	
 	detail_img.visible = false
 	yanweng_img.visible = false
@@ -23,63 +35,30 @@ func _ready():
 	# 开始演出
 	start_opening_sequence()
 
-# --- 【新】全局输入检测 ---
-# 只要玩家点击鼠标左键，就发射信号
-#func _unhandled_input(event):
-	#if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
-		## 发射信号，告诉正在等待的函数“可以继续了”
-		#user_clicked.emit()
-
-# --- 将这段代码复制进去，替换原来的输入函数 ---
+# --- 全局输入检测 ---
 func _input(event):
-	# 只要有鼠标按键动作，先打印一下，看看Godot是不是活着
 	if event is InputEventMouseButton:
-		# 只有按下那一瞬间才算
 		if event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
-			print("【DEBUG】检测到鼠标左键点击！准备发射信号...")
-			
 			# 检查是不是因为按钮挡住了？
 			if choice_container.visible:
-				print("【DEBUG】被选择按钮拦截了，不发射信号。")
 				return
-			
-			# 发射信号
 			user_clicked.emit()
-			print("【DEBUG】信号已发射！")
 
-
-# --- 【新】核心辅助函数：显示文字并等待点击 ---
-# --- 【修改】带打字机效果的对话函数 ---
+# --- 显示文字并等待点击 ---
 func say_and_wait(text: String):
 	subtitle.text = text
-	subtitle.visible_ratio = 0.0 # 先隐藏所有文字
+	subtitle.visible_ratio = 0.0 
 	
-	# 1. 计算打字速度
-	# 0.05 表示每个字显示需要 0.05 秒，你可以改小让它更快
 	var duration = text.length() * 0.05
-	
-	# 2. 创建打字动画
 	var tween = create_tween()
 	tween.tween_property(subtitle, "visible_ratio", 1.0, duration)
 	
-	# 3. 等待玩家点击
-	# 注意：这里的 await 会在玩家点击时触发
 	await user_clicked
 	
-	# 4. 【关键交互逻辑】
-	# 当玩家点击时，我们要判断：是“字还没打完”？还是“字已经打完了”？
-	
 	if subtitle.visible_ratio < 1.0:
-		# 情况A：玩家性急，字还没打完就点了
-		# 操作：停止动画，瞬间显示所有字，并强迫玩家再点一次才换行
-		tween.kill() # 杀掉动画
-		subtitle.visible_ratio = 1.0 # 瞬间全显
-		
-		# 再次等待点击（防止玩家双击连跳两句）
+		tween.kill()
+		subtitle.visible_ratio = 1.0 
 		await user_clicked
-		
-	# 情况B：字已经自动打完了，玩家点击
-	# 操作：什么都不用做，函数结束，脚本会自动执行下一句
 
 # --- 导演脚本 ---
 func start_opening_sequence():
@@ -91,30 +70,28 @@ func start_opening_sequence():
 	sfx_player.play() 
 	
 	var tween = create_tween()
-	# 注意：radius 应该从 0.0 变到 1.5，不要用负数，Shader里写的是 0.0-1.5
+	# 半径变大，显示出画面
 	tween.tween_property(main_visual, "material:shader_parameter/radius", 1.5, 4.0).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
 	
 	await tween.finished
-	print("动画播放完毕，等待用户点击...")
+	print("晕染结束...")
 	
-	#await user_clicked
-	#print("用户点击了！进入下一阶段")
+	# 此时画面已经是亮的了，开始旁白
+	await say_and_wait("现在的石窟是静止的、灰暗的，仿佛一幅褪色的古画。")
 	
-	say_and_wait("现在的石窟是静止的、灰暗的，仿佛一幅褪色的古画。")
+	# 观察效果（放大再缩小）
 	await play_zoom_effect()
 	
-	# --- 阶段三：局部闪烁 ---
-	#play_flash_sequence()
-	#await get_tree().create_timer(3.0).timeout # 闪烁还是让它自动播完比较好
-	#
+	# --- 阶段三：明暗闪烁 (修改后) ---
+	# 字幕配合
+	subtitle.text = "（石窟深处传来了微弱的光芒...）"
+	await play_light_change_sequence() # 执行图片切换动画
+	
 	# --- 阶段四：岩翁出场 ---
 	yanweng_img.visible = true 
 	
-	# 使用新的点击等待逻辑，一句一句来
 	await say_and_wait("岩翁：你来了……入画之人。吾乃此山之骨。\n云冈石窟沉睡太久了。")
-	
 	await say_and_wait("岩翁：当年的工匠将东方的木、西方的石、胡人的乐、汉人的礼，统统揉进了这洞窟里。")
-	
 	await say_and_wait("岩翁：如今，这些‘连接’断了。\n你需要帮我找回散落在画中的‘意象’，重修这交融之窟。")
 	
 	# --- 阶段五：显示选择按钮 ---
@@ -123,42 +100,40 @@ func start_opening_sequence():
 	$ChoiceContainer/Btn_Middle.pressed.connect(_on_enter_game)
 
 
-# --- 辅助：播放特写闪烁 (保持不变) ---
-func play_flash_sequence():
-	detail_img.visible = true
-	# 这里假设你没有多张图，用代码模拟闪烁
-	# 如果你有图，请用你之前的写法
+# --- 【核心修改】播放明暗变化的图片序列 ---
+func play_light_change_sequence():
+	print("开始播放明暗闪烁...")
+	
+	# 定义播放顺序：暗 -> 亮 -> 暗
+	# 1.4(最暗) -> 1.3 -> 1.2 -> 1.1(最亮) -> 1.2 -> 1.3 -> 1.4(最暗)
+	var sequence = [
+		#img_darkest,
+		img_dark,
+		img_bright,
+		img_brightest, # 顶峰
+		img_bright,
+		img_dark,
+		#img_darkest
+	]
+	
+	# 遍历数组进行播放
+	for img in sequence:
+		main_visual.texture = img
+		# 每张图停留 0.15 秒，你可以修改这个数字调整闪烁快慢
+		# 0.1 ~ 0.2 秒比较有“老电影”或“记忆闪回”的感觉
+		await get_tree().create_timer(0.2).timeout
+
+# --- 播放仔细观察的缩放效果 ---
+func play_zoom_effect():
+	print("开始观察效果...")
+	main_visual.pivot_offset = main_visual.size / 2
 	var tween = create_tween()
-	detail_img.modulate.a = 0.0
-	tween.tween_property(detail_img, "modulate:a", 0.5, 1.0) # 变亮
-	tween.tween_property(detail_img, "modulate:a", 0.0, 1.0) # 变暗
+	tween.tween_property(main_visual, "scale", Vector2(1.1, 1.1), 3.0).set_trans(Tween.TRANS_SINE)
+	tween.tween_interval(1.0)
+	tween.tween_property(main_visual, "scale", Vector2(1.0, 1.0), 2.0).set_trans(Tween.TRANS_SINE)
 	await tween.finished
-	detail_img.visible = false
 
 # --- 进入游戏 ---
 func _on_enter_game():
 	sfx_player.stop()
 	get_tree().change_scene_to_file("res://Scenes/game_scene1.tscn")
-
-# --- 【新】播放仔细观察的缩放效果 ---
-func play_zoom_effect():
-	print("开始观察效果...")
-	
-	# 1. 关键步骤：设置缩放的轴心点为图片中心
-	# 如果不写这一行，图片会向右下角跑偏
-	main_visual.pivot_offset = main_visual.size / 2
-	
-	var tween = create_tween()
-	
-	# 2. 缓慢放大 (从 1.0 放大到 1.1倍，耗时 3 秒)
-	# 这种缓慢的推镜头能营造“凝视”的感觉
-	tween.tween_property(main_visual, "scale", Vector2(1.1, 1.1), 3.0).set_trans(Tween.TRANS_SINE)
-	
-	# 3. 停留 (保持放大状态 1 秒)
-	tween.tween_interval(1.0)
-	
-	# 4. 缓慢复原 (回到 1.0，耗时 2 秒)
-	tween.tween_property(main_visual, "scale", Vector2(1.0, 1.0), 2.0).set_trans(Tween.TRANS_SINE)
-	
-	# 等待整个过程结束
-	await tween.finished

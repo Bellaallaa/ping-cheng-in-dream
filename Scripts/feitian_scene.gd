@@ -195,7 +195,7 @@ func _ready():
 	
 	await tween_write.finished
 	
-	await get_tree().create_timer(2.0).timeout 
+	await get_tree().create_timer(1.5).timeout 
 	
 	# 2. 隧道 + 光圈 同时浮现
 	# 光圈会遮住方形图片的硬边，让它看起来像融入了白雾中

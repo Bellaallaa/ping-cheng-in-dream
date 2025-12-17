@@ -14,7 +14,11 @@ extends Control
 @onready var item_desc = $CollectionPopup/ItemDesc
 @onready var confirm_btn = $CollectionPopup/ConfirmButton
 @onready var end_title = $EndTitle 
-@onready var next_button=$NextButton
+@onready var next_button = $NextButton
+
+# 【新】音频播放器
+@onready var bgm_player = $BGMPlayer 
+
 # --- 2. 剧本数据  ---
 var script_data = [
 	# 0. 林音开场
@@ -23,7 +27,9 @@ var script_data = [
 		"name": "林音", 
 		"text": "  这就是第12窟……被称为‘音乐窟’的地方。但在书本之外，它竟然如此寂静，像一位失语的老人。",
 		"char": null,
-		"bg": "res://Assets/Images/background/bg_scene1.jpg" # 最开始的全景图
+		"bg": "res://Assets/Images/background/bg_scene1.jpg",
+		# 【新】在这里配置背景音乐路径
+		"bgm": "res://Assets/Audio/bgm/1_bgm.mp3" 
 	},
 	# 1. 岩翁出场
 	{
@@ -31,24 +37,24 @@ var script_data = [
 		"name": "岩翁", 
 		"text": "  孩子，别只盯着地面。云冈的魂魄，往往藏在你抬头才能看见的地方。",
 		"char": "res://Assets/Images/ui/RockOldMan.png"
+		# 没有 "bgm" 字段，表示继续播放上一首
 	},
-	# 2. 岩翁提示 (切换：拱门全景)
+	# 2. 岩翁提示
 	{
 		"type": "text", 
 		"name": "岩翁", 
 		"text": "  看那窟门上方的拱楣……众神飞舞之间，有两条神兽正首尾相交，锁住了这满窟的繁华。",
 		"char": "res://Assets/Images/ui/RockOldMan.png",
-		# 这里切换成【拱门全景】
-		"bg": "res://Assets/Images/background/jiaolong_wide.png" 
+		"bg": "res://Assets/Images/background/jiaolong_wide.png"
 	},
-	# 3. 等待交互 (寻找交龙)
+	# 3. 等待交互
 	{
 		"type": "wait_click_pillar"
 	},
 	
-	# --- 弹窗关闭后的剧情 ---
+	# ... (后续数据保持不变) ...
 	
-	# 4. 岩翁解说 (背景定格在交龙细节)
+	# 4. 岩翁解说
 	{
 		"type": "text", 
 		"name": "岩翁", 
@@ -66,17 +72,25 @@ var script_data = [
 	{
 		"type": "end_screen",  
 		"text": "（第一幕 · 寻找骨骼 完成）",
-		"bg": "res://Assets/Images/background/zhuzi.jpg"
+		"bg": "res://Assets/Images/background/zhuzi.jpg",
+		"bgm": "stop" # 【新】结束时停止音乐
 	}
 ]
 
 var current_index = 0
 var is_waiting_click = false
+# 正常音量 (0dB)
+const MAX_VOLUME = 0.0 
+# 静音音量 (-80dB)
+const MIN_VOLUME = -80.0 
 
 func _ready():
 	# 初始化
 	pillar_btn.visible = false
 	collection_popup.visible = false
+	
+	# 确保播放器初始是静音的
+	bgm_player.volume_db = MIN_VOLUME 
 	
 	if not confirm_btn.pressed.is_connected(_on_confirm_button_pressed):
 		confirm_btn.pressed.connect(_on_confirm_button_pressed)
@@ -100,7 +114,7 @@ func next_line():
 func show_line():
 	var data = script_data[current_index]
 	
-	# 背景切换逻辑
+	# 1. 背景切换逻辑
 	if data.has("bg") and data["bg"] != null:
 		if current_index == 0:
 			background.texture = load(data["bg"])
@@ -108,6 +122,11 @@ func show_line():
 		elif background.texture == null or background.texture.resource_path != data["bg"]:
 			change_background_smooth(data["bg"])
 	
+	# 2. 【新】音乐切换逻辑
+	if data.has("bgm"):
+		play_bgm_smooth(data["bgm"])
+
+	# 3. 文本/交互逻辑
 	if data["type"] == "text":
 		dialog_box.visible = true
 		pillar_btn.visible = false
@@ -127,17 +146,17 @@ func show_line():
 		var tween = create_tween().set_loops()
 		tween.tween_property(pillar_btn, "modulate:a", 0.5, 0.8)
 		tween.tween_property(pillar_btn, "modulate:a", 1.0, 0.8)
+	
 	elif data["type"] == "end_screen":
 		# [落幕模式]
-		# 1. 隐藏所有旧UI
 		dialog_box.visible = false
 		character.visible = false
 		pillar_btn.visible = false
 		
-		# 2. 设置并显示居中标题
 		end_title.text = data["text"]
 		end_title.visible = true
-		next_button.visible=true
+		next_button.visible = true
+
 # --- 柔和切换背景函数 ---
 func change_background_smooth(image_path):
 	var tween = create_tween()
@@ -145,17 +164,46 @@ func change_background_smooth(image_path):
 	tween.tween_callback(func(): background.texture = load(image_path))
 	tween.tween_property(background, "modulate:a", 1.0, 0.5)
 
+# --- 【新】音乐淡入淡出函数 ---
+func play_bgm_smooth(audio_path):
+	# 情况1: 要求停止音乐
+	if audio_path == "stop" or audio_path == null:
+		var tween = create_tween()
+		# 1秒淡出到 -80dB
+		tween.tween_property(bgm_player, "volume_db", MIN_VOLUME, 1.0)
+		tween.tween_callback(bgm_player.stop)
+		return
 
+	# 情况2: 要求的音乐和正在放的一样 -> 什么都不做
+	if bgm_player.playing and bgm_player.stream and bgm_player.stream.resource_path == audio_path:
+		return
+
+	# 情况3: 切换新音乐 (淡出旧的 -> 换碟 -> 淡入新的)
+	var tween = create_tween()
+	
+	# 如果当前有声音，先淡出
+	if bgm_player.playing:
+		tween.tween_property(bgm_player, "volume_db", MIN_VOLUME, 1.0) # 1秒淡出
+	
+	# 换音乐并开始播放 (回调函数)
+	tween.tween_callback(func():
+		bgm_player.stream = load(audio_path)
+		bgm_player.play()
+		bgm_player.volume_db = MIN_VOLUME # 确保开始是静音的
+	)
+	
+	# 淡入
+	tween.tween_property(bgm_player, "volume_db", MAX_VOLUME, 1.0) # 1秒淡入
+
+# --- 按钮交互 ---
 func _on_pillar_button_pressed():
 	is_waiting_click = false
 	pillar_btn.visible = false
 	collection_popup.visible = true
 	
-	# --- 1. 设置弹窗里的大图 (交龙细节) ---
 	if item_image:
 		item_image.texture = load("res://Assets/Images/background/jiaolong_detail.jpg")
 	
-	# --- 2. 科普文案 (交龙纹) ---
 	item_desc.text = "      【意象 · 门楣交龙纹】\n\n" + \
 	"位置：第12窟前室拱门门楣\n" + \
 	"  双龙首尾相交，龙身呈波状起伏，穿插缠绕。不同于秦汉的粗犷，这里的龙线条柔韧流畅，如同云气盘旋。\n" + \
@@ -163,13 +211,13 @@ func _on_pillar_button_pressed():
 
 func _on_confirm_button_pressed():
 	collection_popup.visible = false
-	
-	# --- 3. 收录完成后，背景直接切换成高清细节图 ---
 	var detail_bg_path = "res://Assets/Images/background/jiaolong_detail.jpg"
 	change_background_smooth(detail_bg_path)
-	
 	next_line()
 
 func _on_next_button_pressed():
+	# 场景切换前，建议把音乐淡出一下
+	var tween = create_tween()
+	tween.tween_property(bgm_player, "volume_db", MIN_VOLUME, 0.5)
+	await tween.finished
 	get_tree().change_scene_to_file("res://Scenes/ceiling_scene.tscn")
-	
