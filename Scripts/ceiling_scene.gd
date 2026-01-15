@@ -155,13 +155,13 @@ func play_full_flow():
 	# 乐姬介绍
 	yanweng_img.visible = false
 	await switch_background_with_fade("res://Assets/Images/background/pipayueji1.jpg")
-	await say_and_wait("乐姬：我是天宫的乐伎。昔日我手持【曲项琵琶】，奏响胡汉之音。\n如今琴身失落，我也失去了色彩。")
-	await say_and_wait("请帮我找回【曲项琵琶】，让音乐窟重新焕发生机。")
+	await say_and_wait("乐姬：吾乃天宫乐伎。昔日我手持【曲项琵琶】，奏响胡汉之音。\n奈何千年风化，琴离弦断，身陷斑驳无色之苦。")
+	await say_and_wait("若能寻回那把【曲项琵琶】，便能令这满壁笙歌，重焕生机。")
 	
 	# 僧人介绍 (法螺介绍)
 	await switch_background_with_fade("res://Assets/Images/background/faluoyueji1.jpg")
-	await say_and_wait("僧人：贫僧守护此窟千年。那枚定调的【法螺】不知遗落在何处。")
-	await say_and_wait("僧人：没有法螺的洪音，交响便失去了根基。施主，请务必帮我寻回。")
+	await say_and_wait("僧人：贫僧守护此窟千年。唯叹那枚定调的【法螺】，遗失于流沙岁月之中。")
+	await say_and_wait("僧人：法螺不鸣，众音无主，万籁皆寂。施主，那是佛国妙音的根基，切盼寻回。")
 	
 	# 回到主场景
 	await switch_background_with_fade("res://Assets/Images/background/6.1.jpg")
@@ -176,7 +176,7 @@ func start_pipa_phase():
 	lights_group.visible = true
 	left_light.visible = true
 	right_light.visible = false
-	await say_and_wait("岩翁：左侧有动静，去看看。")
+	await say_and_wait("岩翁：左侧壁画似有灵光微澜，不妨上前一探。")
 
 # --- 左侧光点点击逻辑 (兼顾收集和修复) ---
 func _on_left_light_pressed():
@@ -193,7 +193,7 @@ func _on_left_light_pressed():
 	item_pipa.visible = true
 	item_conch.visible = false
 	collect_btn.visible = true
-	subtitle.text = "发现【曲项琵琶】"
+	subtitle.text = "拂去尘土，得见【曲项琵琶】。"
 
 func _on_collect_button_pressed():
 	items_group.visible = false
@@ -201,7 +201,7 @@ func _on_collect_button_pressed():
 	
 	# 进背包
 	pack_pipa.visible = true 
-	subtitle.text = "【曲项琵琶】已放入背包。"
+	subtitle.text = "【曲项琵琶】已收入行囊。"
 	
 	# 下一阶段：找法螺
 	await get_tree().create_timer(1.0).timeout
@@ -211,7 +211,7 @@ func start_conch_phase():
 	lights_group.visible = true
 	left_light.visible = false
 	right_light.visible = true
-	await say_and_wait("岩翁：右侧也有光芒。")
+	await say_and_wait("岩翁：右侧亦有辉光闪烁，似是某种呼唤。")
 
 # --- 右侧光点点击逻辑 ---
 func _on_right_light_pressed():
@@ -228,7 +228,7 @@ func _on_right_light_pressed():
 	item_conch.visible = true
 	item_pipa.visible = false
 	collect_btn2.visible = true
-	subtitle.text = "发现【法螺】"
+	subtitle.text = "拾得【法螺】，海潮之音隐约可闻。"
 
 # ==========================================
 # 5. 开启修复阶段 
@@ -242,7 +242,7 @@ func _on_collect_button2_pressed():
 	# 进背包
 	pack_conch.visible = true
 	
-	subtitle.text = "【法螺】已放入背包。碎片集齐。"
+	subtitle.text = "【法螺】已归入行囊。散落的残篇，皆已集齐。"
 	await get_tree().create_timer(1.0).timeout
 	
 	# 3. 开启修复阶段
@@ -252,7 +252,7 @@ func start_repair_phase():
 	is_repair_phase = true # 打开开关
 	
 	yanweng_img.visible = true
-	await say_and_wait("岩翁：现在，点击左侧光点进入心像空间，修复乐姬。")
+	await say_and_wait("岩翁：万事俱备。入画者，请触碰左侧微光，入那心像之境，为乐伎重塑金身。")
 	
 	# 重新点亮左侧光点 (作为入口)
 	lights_group.visible = true
@@ -281,7 +281,7 @@ func enter_pipa_room():
 	leji_img.material = leji_img.material 
 	leji_img.modulate.a = 1.0 # 确保图片本身是不透明的
 	
-	subtitle.text = "岩翁：乐姬失去了色彩... 打开背包试试。"
+	subtitle.text = "岩翁：画中人神韵枯槁…… 且开行囊，物归原主。"
 
 	
 # 点击“打开背包”按钮 (通用)
@@ -354,7 +354,7 @@ func fix_success(item):
 		# 1.5秒内，从亮白变回正常颜色，颜色就显现出来了
 		tween.tween_property(leji_img, "modulate", Color(1, 1, 1, 1), 1.5)
 		
-		subtitle.text = "乐姬：盛唐之音，再次回响。"
+		subtitle.text = "乐姬：锦瑟无端五十弦…… 这盛唐霓裳，终于再现人间。"
 		
 		await tween.finished
 		back_btn_pipa.visible = true
@@ -388,7 +388,7 @@ func _on_pipa_room_back():
 	left_light.visible = false
 	right_light.visible = true
 	
-	subtitle.text = "岩翁：去右侧，修复最后一位。"
+	subtitle.text = "岩翁：去右侧吧，让那最后一声佛号，响彻云冈。"
 
 # ==========================================
 # 7. 法螺修复流程
@@ -411,7 +411,7 @@ func enter_conch_room():
 	faluo_img.material = faluo_img.material
 	faluo_img.modulate.a = 1.0
 	
-	subtitle.text = "岩翁：打开背包，归还法螺。"
+	subtitle.text = "岩翁：开启行囊，让法螺归位，唤醒千年的回响。"
 
 # ==========================================
 # 8. 结局

@@ -1,8 +1,8 @@
-[gd_scene load_steps=18 format=3 uid="uid://ctbcvpu88xx0x"]
+[gd_scene load_steps=19 format=3 uid="uid://ctbcvpu88xx0x"]
 
 [ext_resource type="Script" uid="uid://dhen5dsarhhua" path="res://Scripts/ceiling_scene.gd" id="1_ndpf4"]
 [ext_resource type="Texture2D" uid="uid://wtygcvod4yox" path="res://Assets/Images/background/yanweng.png" id="2_8t4f5"]
-[ext_resource type="FontFile" uid="uid://bqhh6tce08bj8" path="res://Assets/SIMLI.TTF" id="3_pj5bi"]
+[ext_resource type="FontFile" uid="uid://bqhh6tce08bj8" path="res://Assets/Images/SIMLI.TTF" id="3_pj5bi"]
 [ext_resource type="Texture2D" uid="uid://c0ka8yo25rcir" path="res://Assets/Images/items/circle.png" id="4_wdbgi"]
 [ext_resource type="AudioStream" uid="uid://cto1lhpps2os8" path="res://Assets/Audio/sfx/pipa1.MP3" id="5_1thdf"]
 [ext_resource type="Texture2D" uid="uid://c7sumyvu14yi2" path="res://Assets/Images/items/img_feitian_lute.png" id="5_gu0ic"]
@@ -12,6 +12,7 @@
 [ext_resource type="AudioStream" uid="uid://2ylir2aw12jj" path="res://Assets/Audio/bgm/2_start.MP3" id="10_wdbgi"]
 [ext_resource type="Shader" uid="uid://qvdjiel35wxq" path="res://Scenes/ceiling_scene.gdshader" id="11_pm8mw"]
 [ext_resource type="Texture2D" uid="uid://hjh2mpxhe74s" path="res://Assets/Images/background/feitian_pipa.jpg" id="12_wdbgi"]
+[ext_resource type="Texture2D" uid="uid://b7pyad8i8qawp" path="res://Scenes/bag_icon.png" id="13_030lq"]
 [ext_resource type="Texture2D" uid="uid://bi11vnka71lff" path="res://Assets/Images/background/feitian_faluo.jpg" id="13_wdbgi"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_030lq"]
@@ -176,15 +177,15 @@ theme_override_fonts/font = ExtResource("3_pj5bi")
 theme_override_font_sizes/font_size = 66
 text = "返回"
 
-[node name="BagBtn" type="Button" parent="RestorationUI/PipaRoom"]
+[node name="BagBtn" type="TextureButton" parent="RestorationUI/PipaRoom"]
 layout_mode = 0
 offset_left = 1569.0
 offset_top = 848.0
-offset_right = 1817.0
-offset_bottom = 917.0
-theme_override_fonts/font = ExtResource("3_pj5bi")
-theme_override_font_sizes/font_size = 60
-text = "打开背包"
+offset_right = 1869.0
+offset_bottom = 1148.0
+texture_normal = ExtResource("13_030lq")
+ignore_texture_size = true
+stretch_mode = 5
 
 [node name="ConchRoom" type="Control" parent="RestorationUI"]
 layout_mode = 3
@@ -213,15 +214,13 @@ position = Vector2(970, 545)
 position = Vector2(2, 22)
 shape = SubResource("CircleShape2D_502vb")
 
-[node name="BagBtn" type="Button" parent="RestorationUI/ConchRoom"]
+[node name="BagBtn" type="TextureButton" parent="RestorationUI/ConchRoom"]
 layout_mode = 0
 offset_left = 1569.0
 offset_top = 848.0
 offset_right = 1817.0
 offset_bottom = 917.0
-theme_override_fonts/font = ExtResource("3_pj5bi")
-theme_override_font_sizes/font_size = 60
-text = "打开背包"
+texture_normal = ExtResource("13_030lq")
 
 [node name="Backpack" type="HBoxContainer" parent="RestorationUI"]
 anchors_preset = 2
