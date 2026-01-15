@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://g143s6poroo7"
-path="res://.godot/imported/faluo.png-7941c8a51613d5f5de8592f3f5bf622e.ctex"
+uid="uid://b7pyad8i8qawp"
+path="res://.godot/imported/bag_icon.png-f834d4a32151be14f7b041e36eb66702.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Images/items/faluo.png"
-dest_files=["res://.godot/imported/faluo.png-7941c8a51613d5f5de8592f3f5bf622e.ctex"]
+source_file="res://Scenes/bag_icon.png"
+dest_files=["res://.godot/imported/bag_icon.png-f834d4a32151be14f7b041e36eb66702.ctex"]
 
 [params]
 
