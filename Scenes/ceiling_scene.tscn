@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dhen5dsarhhua" path="res://Scripts/ceiling_scene.gd" id="1_ndpf4"]
 [ext_resource type="Texture2D" uid="uid://wtygcvod4yox" path="res://Assets/Images/background/yanweng.png" id="2_8t4f5"]
-[ext_resource type="FontFile" uid="uid://bqhh6tce08bj8" path="res://Assets/SIMLI.TTF" id="3_pj5bi"]
+[ext_resource type="FontFile" uid="uid://bqhh6tce08bj8" path="res://Assets/Images/SIMLI.TTF" id="3_pj5bi"]
 [ext_resource type="Texture2D" uid="uid://c0ka8yo25rcir" path="res://Assets/Images/items/circle.png" id="4_wdbgi"]
 [ext_resource type="AudioStream" uid="uid://cto1lhpps2os8" path="res://Assets/Audio/sfx/pipa1.MP3" id="5_1thdf"]
 [ext_resource type="Texture2D" uid="uid://c47pf5573ifyh" path="res://Assets/Images/items/img_feitian_lute.png" id="5_gu0ic"]
